@@ -1,0 +1,28 @@
+08.31 7:51 AM
+Codesoft T3 attendance app
+// Assuming you have Firebase set up and authenticated
+
+// Mark attendance for a student
+public void markAttendance(String courseId, String studentId) {
+    DatabaseReference attendanceRef = FirebaseDatabase.getInstance().getReference("attendance");
+    
+    // Create a new attendance record
+    String recordId = attendanceRef.child(courseId).push().getKey();
+    AttendanceRecord record = new AttendanceRecord(studentId, getCurrentTimestamp());
+    
+    attendanceRef.child(courseId).child(recordId).setValue(record);
+}
+
+// AttendanceRecord class
+public class AttendanceRecord {
+    private String studentId;
+    private long timestamp;
+
+    // Constructor, getters, and setters
+}
+
+// Get current timestamp
+private long getCurrentTimestamp() {
+    return ServerValue.TIMESTAMP;
+}
+
